@@ -29,7 +29,7 @@ render(
     <div>
       <Router history={history} routes={routes} />
       <ReduxToastr
-        timeOut={35000}
+        timeOut={3500}
         newestOnTop={true}
         position="top-right" />
     </div>

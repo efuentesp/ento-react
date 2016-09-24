@@ -34,12 +34,16 @@ class ClienteEdit extends Component {
     this.props.updateCliente(this.props.params.id, props)
       .then(() => {
         this.context.router.push('/cliente_mgmnt');
-        toastr.success("Cliente modificado", `El Cliente fué modificado exitosamente.`);
+        toastr.success(
+          "Cliente modificado",
+          "El Cliente fué modificado exitosamente.", {
+            timeOut: 3000,
+            extendedTimeOut: 1000});
       });
   }
 
   render() {
-    const { cliente, handleSubmit, reset, pristine, submitting } = this.props;
+    const { cliente, handleSubmit, reset, pristine, submitSucceeded } = this.props;
 
     if ((cliente || {}).loading) {
       return (
@@ -89,14 +93,14 @@ class ClienteEdit extends Component {
                 <Button
                   type="submit"
                   bsStyle="primary"
-                  disabled={pristine || submitting}>
-                    <i className={`${submitting ? 'fa fa-refresh fa-spin' : 'fa fa-save'}`} />
+                  disabled={pristine || submitSucceeded}>
+                    <i className={`${submitSucceeded ? 'fa fa-refresh fa-spin' : 'fa fa-save'}`} />
                     <span> Guardar</span>
                 </Button>
                 <Button
                   type="button"
                   bsStyle="default"
-                  disabled={pristine || submitting}
+                  disabled={pristine || submitSucceeded}
                   onClick={reset}>
                     <i className="fa fa-undo" />
                     <span> Deshacer</span>
@@ -122,7 +126,7 @@ ClienteEdit.propTypes = {
   cliente: PropTypes.object,
   handleSubmit: PropTypes.func.isRequired,
   reset: PropTypes.func.isRequired,
-  submitting: PropTypes.bool.isRequired,
+  submitSucceeded: PropTypes.bool.isRequired,
   pristine: PropTypes.bool.isRequired,
 };
 
